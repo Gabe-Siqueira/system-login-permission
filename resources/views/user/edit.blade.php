@@ -9,7 +9,7 @@
     }
 </style>
 
-<main class="book-form">
+<main class="user-form">
     <div class="container">
         <div class="row justify-content-center">
             <div class="container-fluid">
@@ -20,7 +20,7 @@
                             <div class="card-body">
                                 <div class="row ml-1">
                                     <h2 class="bold">
-                                        Atualizar Grupo - ID: {{ $user->id }}
+                                        Atualizar Usuário - ID: {{ $user->id }}
                                     </h2>
                                 </div>
                                 <x-erro :message="$errors->all()"/>
@@ -84,7 +84,7 @@
                                                                 </option>
                                                             @else
                                                                 @if ($value->id != 1)
-                                                                    <option value="{{ $value->id }}" { ($value->id == $user->id_profile) ? "selected" : "" }} >
+                                                                    <option value="{{ $value->id }}" {{ ($value->id == $user->id_profile) ? "selected" : "" }} >
                                                                         {{ $value->name }}
                                                                     </option>
                                                                 @endif
