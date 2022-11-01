@@ -70,7 +70,6 @@ class MenuApiController extends Controller
             // $menu = $this->menu;
             $menu = new Menu();
             $menu->fill($request->all());
-            $menu->password = bcrypt($request->password);
             $menu->save();
             return LibraryController::responseApi($menu, 'ok');
             // return response()->json(LibraryController::responseApi($menu, 'ok'));
@@ -131,7 +130,7 @@ class MenuApiController extends Controller
             ], [
                 'name.unique' => 'Menu "'.$request->name.'" já está em uso.',
             ], [
-                'id_menu_type' => 'Tipo Menu',
+                'id_menu_type' => 'Tipo',
                 'name'      => 'Menu',
                 'link'      => 'Link',
                 'icon'      => 'Icone',
