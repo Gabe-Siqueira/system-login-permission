@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use \GuzzleHttp\Psr7\Request as RequestGuzzle;
+use Illuminate\Support\Facades\Auth;
 
 class LibraryController extends Controller
 {
@@ -34,18 +35,19 @@ class LibraryController extends Controller
         }
     }
 
-    public static function responseApi($data = [], $message = '', $error = 0): Array
+    public static function responseApi($data = [], $message = '', $error = 0, $success = true): Array
     {
         return [
             'error' => $error,
             'data' => $data,
-            'message' => $message
+            'message' => $message,
+            'success' => $success
         ];
     }
 
     public static function logupdate(Model $model): void
     {
-        $user = auth('api')->user();
+        $user = Auth::user();
         foreach ($model->getDirty() as $key => $dirting) {
             $log = new LogUpdate();
             $log->id_user = $user->id;
