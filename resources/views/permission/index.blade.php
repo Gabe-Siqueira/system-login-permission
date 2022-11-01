@@ -87,16 +87,18 @@
                                                     <td>{{$value->name}}</td>
                                                     <td>{{\Carbon\Carbon::parse($value->created_at)->tz('America/Sao_Paulo')->format('d/m/Y H:i:s')}}</td>
                                                     <td class="text-center">
-                                                        {{-- @if (permissao('permission', 'edit')) --}}
+                                                        <div class="row" style="display: inline-flex;">
                                                             <a class="btn btn-primary btn-sm" href="{{ route('permission.edit',['id' => $value->id]) }}" role="button">
                                                                 Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                             </a>
-                                                        {{-- @endif --}}
-                                                        {{-- @if (permissao('permission', 'destroy')) --}}
-                                                            <button type="button" name="excluir" value="{{ $value->id }}" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal">
-                                                                Excluir <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                            </button>
-                                                        {{-- @endif --}}
+                                                            <form method="post" class="delete_form" action="{{ route('permission.destroy',['id' => $value->id]) }}">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                                    Excluir <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
