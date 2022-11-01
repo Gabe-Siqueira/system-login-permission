@@ -1,12 +1,5 @@
 @extends('layouts.authBase')
 
-@if ($errors)
-    @foreach ($errors as $errors)
-        dd($errors);
-    @endforeach
-
-@endif
-
 @section('content')
 
 <style>
