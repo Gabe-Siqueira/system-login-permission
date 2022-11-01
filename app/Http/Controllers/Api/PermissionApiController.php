@@ -62,7 +62,6 @@ class PermissionApiController extends Controller
             // $permission = $this->permission;
             $permission = new Permission();
             $permission->fill($request->all());
-            $permission->password = bcrypt($request->password);
             $permission->save();
             return LibraryController::responseApi($permission, 'ok');
             // return response()->json(LibraryController::responseApi($permission, 'ok'));
