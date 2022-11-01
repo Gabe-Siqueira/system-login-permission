@@ -94,10 +94,9 @@ class PermissionAdminController extends Controller
             foreach ($permission as $key => $value) {
                 $returnPermission->id = $value->id;
                 $returnPermission->name = $value->name;
-                $returnPermission->email = $value->email;
             }
 
-            return view('menu.edit',['user' => $returnPermission]);
+            return view('permission.edit',['permission' => $returnPermission]);
         } catch (Exception $e) {
             throw $e;
             return LibraryController::responseApi(["title" => __('messages.titleLoadPageError'), "message" => __('messages.defaultMessage')], "", 500, false);
