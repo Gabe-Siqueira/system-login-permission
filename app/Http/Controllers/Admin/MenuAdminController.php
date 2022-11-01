@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\Api\MenuApiController;
+use App\Http\Controllers\Api\MenuTypeApiCotroller;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use stdClass;
 
 class MenuAdminController extends Controller
@@ -37,7 +39,11 @@ class MenuAdminController extends Controller
     public function create()
     {
         try {
-            return view('menu.create');
+            $userAuth = Auth::user();
+            $menuTypeController = MenuTypeApiCotroller::index();
+            $menuType = $menuTypeController['data'];
+
+            return view('menu.create', ['menuType' => $menuType]);
         } catch (Exception $e) {
             throw $e;
             return LibraryController::responseApi(["title" => __('messages.titleLoadPageError'), "message" => __('messages.defaultMessage')], "", 500, false);
@@ -86,18 +92,24 @@ class MenuAdminController extends Controller
     {
         try {
 
+            $userAuth = Auth::user();
             $menuService = MenuApiController::show($id);
+            $menuTypeController = MenuTypeApiCotroller::index();
 
             $menu = $menuService['data'];
+            $menuType = $menuTypeController['data'];
 
             $returnMenu = new stdClass;
             foreach ($menu as $key => $value) {
                 $returnMenu->id = $value->id;
                 $returnMenu->name = $value->name;
-                $returnMenu->email = $value->email;
+                $returnMenu->link = $value->link;
+                $returnMenu->icon = $value->icon;
+                $returnMenu->order = $value->order;
+                $returnMenu->id_menu_type = $value->id_menu_type;
             }
 
-            return view('menu.edit',['user' => $returnMenu]);
+            return view('menu.edit',['menu' => $returnMenu, 'menuType' => $menuType]);
         } catch (Exception $e) {
             throw $e;
             return LibraryController::responseApi(["title" => __('messages.titleLoadPageError'), "message" => __('messages.defaultMessage')], "", 500, false);
