@@ -7,6 +7,7 @@ use App\Http\Controllers\LibraryController;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserApiController extends Controller
@@ -20,7 +21,41 @@ class UserApiController extends Controller
     public static function index()
     {
         try {
+            $auth = Auth::user();
             $user = new User();
+            if ($auth->id_profile != 1) {
+                $user = $user->whereNotIn('id_profile', [1]);
+            }
+            $response = $user->get();
+
+            return LibraryController::responseApi($response);
+        } catch (Exception $e) {
+            LibraryController::recordError($e);
+            if ($e->getCode()) {
+                $code = $e->getCode();
+            }else {
+                $code = 500;
+            }
+            return response()->json(LibraryController::responseApi([],$e->getMessage(), $code, false));
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public static function indexProfile()
+    {
+        try {
+            $auth = Auth::user();
+            $user = new User();
+            if ($auth->id_profile != 1) {
+                $user = $user->whereNotIn('id_profile', [1]);
+            }
+            $user = $user->join('profile', 'users.id_profile', '=', 'profile.id');
+            $user = $user->select('users.id AS id', 'profile.name AS id_profile', 'users.name AS name');
+            $user = $user->orderBy('users.id_profile');
             $response = $user->get();
 
             return LibraryController::responseApi($response);
