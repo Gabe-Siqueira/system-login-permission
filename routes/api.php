@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\MenuController;
-use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\MenuApiController;
+use App\Http\Controllers\Api\PermissionApiController;
+use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,25 +26,26 @@ Route::group(['middleware' => ['jwt.auth']], function(){
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 
-    // UserController
-    Route::get('user', [UserController::class, 'index']);
-    Route::post('user', [UserController::class, 'store']);
-    Route::get('user/{id}', [UserController::class, 'show']);
-    Route::put('user/{id}', [UserController::class, 'update']);
-    Route::delete('user/{id}', [UserController::class, 'destroy']);
+    // UserApiController
+    Route::get('user', [UserApiController::class, 'index']);
+    Route::get('userProfile', [UserApiController::class, 'indexProfile']);
+    Route::post('user', [UserApiController::class, 'store']);
+    Route::get('user/{id}', [UserApiController::class, 'show']);
+    Route::put('user/{id}', [UserApiController::class, 'update']);
+    Route::delete('user/{id}', [UserApiController::class, 'destroy']);
 
-    // PermissionController
-    Route::get('permission', [PermissionController::class, 'index']);
-    Route::post('permission', [PermissionController::class, 'store']);
-    Route::get('permission/{id}', [PermissionController::class, 'show']);
-    Route::put('permission/{id}', [PermissionController::class, 'update']);
-    Route::delete('permission/{id}', [PermissionController::class, 'destroy']);
+    // PermissionApiController
+    Route::get('permission', [PermissionApiController::class, 'index']);
+    Route::post('permission', [PermissionApiController::class, 'store']);
+    Route::get('permission/{id}', [PermissionApiController::class, 'show']);
+    Route::put('permission/{id}', [PermissionApiController::class, 'update']);
+    Route::delete('permission/{id}', [PermissionApiController::class, 'destroy']);
 
-    // MenuController
-    Route::get('menu', [MenuController::class, 'index']);
-    Route::post('menu', [MenuController::class, 'store']);
-    Route::get('menu/{id}', [MenuController::class, 'show']);
-    Route::put('menu/{id}', [MenuController::class, 'update']);
-    Route::delete('menu/{id}', [MenuController::class, 'destroy']);
+    // MenuApiController
+    Route::get('menu', [MenuApiController::class, 'index']);
+    Route::post('menu', [MenuApiController::class, 'store']);
+    Route::get('menu/{id}', [MenuApiController::class, 'show']);
+    Route::put('menu/{id}', [MenuApiController::class, 'update']);
+    Route::delete('menu/{id}', [MenuApiController::class, 'destroy']);
 
 });
