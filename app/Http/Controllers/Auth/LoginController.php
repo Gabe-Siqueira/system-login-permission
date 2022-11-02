@@ -85,8 +85,7 @@ class LoginController extends Controller
 
     public static function logout()
     {
-
-        LibraryController::requestAsync('POST', '/api/logout');
+        $credentials = AuthController::logout();
         Session::forget('credentials');
         Session::forget('nameUser');
         Session::forget('last_activity');
@@ -95,9 +94,7 @@ class LoginController extends Controller
 
     public static function refresh()
     {
-        $libraryController = new LibraryController;
-        $credentials = $libraryController->requestAsync('POST', '/api/refresh');
-
+        $credentials = AuthController::refresh();
         Session::forget('credentials');
         Session::forget('nameUser');
         if (isset($credentials['error'])) {
