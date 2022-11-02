@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LibraryController;
 use App\Models\Permission;
+use App\Models\UserMenu;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -48,23 +49,36 @@ class PermissionApiController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'name' => 'required|unique:menu',
+                'name' => 'required|unique:permission|max:255',
+                'menu' => 'required',
+                'user' => 'required',
             ], [
                 'name.unique' => 'Permissão "'.$request->name.'" já está em uso.',
             ], [
-                'name'      => 'Permissão',
+                'menu'      => 'Menu',
+                'user'      => 'Usuário',
             ]);
 
             if ($validator->fails()) {
                 return LibraryController::responseApi($validator, $validator->getMessageBag(), true, false);
             }
 
-            // $permission = $this->permission;
+            $menu = $request->menu;
+            $user = $request->user;
+
+            $userMenu = new UserMenu();
+
+            foreach ($user as $key => $value) {
+                $userMenu->create([
+                    'id_menu' => $menu,
+                    'id_user' => $value
+                ]);
+            }
+
             $permission = new Permission();
             $permission->fill($request->all());
             $permission->save();
             return LibraryController::responseApi($permission, 'ok');
-            // return response()->json(LibraryController::responseApi($permission, 'ok'));
         } catch (Exception $e) {
             LibraryController::recordError($e);
             if ($e->getCode()) {
