@@ -11,6 +11,8 @@ class UserMenu extends Model
 
     protected $table = 'user_menu';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'id_user',
         'id_menu',
