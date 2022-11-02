@@ -27,19 +27,50 @@
                                 <x-sucesso message="{{ session('success') }}" />
                                 <form action="{{route('permission.store')}}" method="post">
                                     @csrf
-                                    <div class="permission">
+                                    <div class="menu">
                                         <div class="row ml-1">
                                             <h4 class="bold">
-                                                Dados
+                                                Acesso
                                             </h4>
                                         </div>
                                         <hr style="margin-top: -5px;">
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-                                                <div class="form-permission">
-                                                    <b>Nome:</b>
-                                                    <input type="text" class="form-control" name="name" maxlength="255" required >
-                                                    <span class="error-validate"><p id="validate-name"></p></span>
+                                                <div class="form-group">
+                                                    <b>Menu:</b>
+                                                    <select class="form-control" name="menu" required >
+                                                        <option value="">Selecione</option>
+                                                        @foreach ($menu as $value)
+                                                            <option value="{{ $value->id }}_{{ $value->name }}">
+                                                                {{ $value->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user">
+                                        <div class="row ml-1">
+                                            <h4 class="bold">
+                                                Usuários
+                                            </h4>
+                                        </div>
+                                        <hr style="margin-top: -5px;">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <select class="form-control selectpicker" name="user[]" multiple require >
+                                                        @foreach ($user as $key => $value)
+                                                            <optgroup label="{{ $key }}">
+                                                                @foreach ($value as $id => $name)
+                                                                    <option value="{{ $id }}">
+                                                                        {{ $name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,5 +100,20 @@
         </div>
     </div>
 </main>
+
+@endsection
+
+@section('js')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/js/bootstrap-select.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/css/bootstrap-select.min.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function() {
+            $('.selectpicker').selectpicker({
+                noneSelectedText : 'Selecione',
+            });
+        });
+    </script>
 
 @endsection
