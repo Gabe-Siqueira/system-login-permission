@@ -62,33 +62,4 @@ class LibraryController extends Controller
 
     }
 
-    public static function requestAsync($method = 'GET', $route, $body = null, $head = null)
-    {
-        try {
-            if (!$head) {
-                $tokenController = new TokenController;
-                $head = $tokenController->getheaderAuth();
-            }
-            $client = new Client();
-            if ($body) {
-                $request = new RequestGuzzle($method, env('END_POINT_BACKEND') . $route, $head, json_encode($body));
-                $promise = $client->sendAsync($request)->then(function ($response) {
-                    return json_decode($response->getBody()->getContents(),true);
-                });
-            } else {
-                $request = new RequestGuzzle($method, env('END_POINT_BACKEND') . $route, $head);
-                $promise = $client->sendAsync($request)->then(function ($response) {
-                    return json_decode($response->getBody()->getContents(),true);
-                });
-            }
-            $result = $promise->wait();
-            if (isset($result['error']) && $result['error']) {
-                throw new Exception();
-            }
-            return $result;
-        } catch (Exception $e) {
-            throw $e;
-        }
-
-    }
 }
