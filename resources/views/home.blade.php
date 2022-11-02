@@ -7,13 +7,20 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="jumbotron">
-                        <h1 class="display-4">Hello, {{ $user->name }}!</h1>
+                        <div class="row">
+                            <h1 class="display-4 ml-3">Hello, {{ $user->name }}!</h1>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 mt-4" style="margin-left: auto;">
+                                <a class="btn btn-danger btn-sm btn-block" href="{{ route('logout') }}" role="button">
+                                    Sair <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
                         <p class="lead">Acessos:</p>
                         <hr class="my-4">
                         {{-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> --}}
                         <p class="lead">
                             <div class="row">
-                                <div class="access" style="margin-left: 30px;">
+                                <!-- <div class="access" style="margin-left: 30px;">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <a class="btn btn-success btn-sm btn-block"  href="{{ route('user.index') }}" role="button">
                                             Usuário
@@ -29,8 +36,8 @@
                                             Permissão
                                         </a>
                                     </div>
-                                </div>
-                                <div class="screen" style="margin-left: auto; margin-right: 50px;">
+                                </div> -->
+                                <!-- <div class="access_user" style="margin-right: 50px;">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <a class="btn btn-danger btn-sm btn-block"  href="{{ route('course.index') }}" role="button">
                                                 Curso
@@ -47,6 +54,15 @@
                                             </a>
                                         </div>
                                     </div>
+                                </div> -->
+                                <div class="access" style="margin-left: 30px;">
+                                    @foreach ($menu as $value)
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
+                                            <a class="btn btn-success btn-sm btn-block"  href="{{ route($value->link) }}" role="button">
+                                                {{ $value->name }}
+                                            </a>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </p>
