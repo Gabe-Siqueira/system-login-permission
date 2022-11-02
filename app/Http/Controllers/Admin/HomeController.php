@@ -20,7 +20,9 @@ class HomeController extends Controller
     {
         try {
             $user = Auth::user();
-            return view('home', ['user' => $user]);
+            $menu = $user->menu;
+            // dd($menu);
+            return view('home', ['user' => $user, 'menu' => $menu]);
             // return redirect(route('home'));
         } catch (Exception $e) {
             LibraryController::recordError($e);
