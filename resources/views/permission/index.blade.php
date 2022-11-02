@@ -62,13 +62,11 @@
                                     <h2 style="margin-left: 30px;">
                                         Permissão
                                     </h2>
-                                    {{-- @if (permissao('permission', 'create')) --}}
-                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="margin-left: auto; margin-right: 15px;">
-                                            <a class="btn btn-success btn-sm btn-block" href="{{ route('permission.create') }}" role="button">
-                                                Cadastrar <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
-                                            </a>
-                                        </div>
-                                    {{-- @endif --}}
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12" style="margin-left: auto; margin-right: 15px;">
+                                        <a class="btn btn-success btn-sm btn-block" href="{{ route('permission.create') }}" role="button">
+                                            Cadastrar <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="table-responsive-sm  table-responsive-md mt-3">
                                     <table id="permissionDataTable" class="table table-striped table-bordered no-wrap">
