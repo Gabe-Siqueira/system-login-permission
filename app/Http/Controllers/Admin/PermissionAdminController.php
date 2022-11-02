@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Api\MenuApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\Api\PermissionApiController;
+use App\Http\Controllers\Api\UserApiController;
 use Exception;
 use Illuminate\Http\Request;
 use stdClass;
@@ -37,7 +39,18 @@ class PermissionAdminController extends Controller
     public function create()
     {
         try {
-            return view('permission.create');
+            $menuController = MenuApiController::index();
+            $userController = UserApiController::indexProfile();
+
+            $menu = $menuController['data'];
+            $user = $userController['data'];
+
+            $arrayUser = array();
+            foreach ($user as $key => $value) {
+                $arrayUser[$value->id_profile][$value->id] = $value->name;
+            }
+
+            return view('permission.create', ['menu' => $menu, 'user' => $arrayUser]);
         } catch (Exception $e) {
             throw $e;
             return LibraryController::responseApi(["title" => __('messages.titleLoadPageError'), "message" => __('messages.defaultMessage')], "", 500, false);
@@ -53,6 +66,16 @@ class PermissionAdminController extends Controller
     public function store(Request $request)
     {
         try {
+
+            $menu = explode('_', $request->menu);
+
+            $id_menu = $menu[0];
+            $name = $menu[1];
+
+            $request->request->add([
+                'menu' => $id_menu,
+                'name' => $name
+            ]);
 
             $permissionController = PermissionApiController::store($request);
             $permission = $permissionController;
