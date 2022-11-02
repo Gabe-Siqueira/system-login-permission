@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryAdminController;
+use App\Http\Controllers\Admin\CourseAdminController;
+use App\Http\Controllers\Admin\FileAdminController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\MenuAdminController;
@@ -59,5 +62,14 @@ Route::get('/sessionexpire', [HomeController::class, 'sessionexpire'])->name('ho
     Route::get('/permission/{id}',  [PermissionAdminController::class, 'edit'])->name('permission.edit');
     Route::put('/permission/{id}',  [PermissionAdminController::class, 'update'])->name('permission.update');
     Route::delete('/permission/{id}',  [PermissionAdminController::class, 'destroy'])->name('permission.destroy');
+
+    // CourseAdminController
+    Route::get('/course',  [CourseAdminController::class, 'index'])->name('course.index');
+
+    // CategoryAdminController
+    Route::get('/category',  [CategoryAdminController::class, 'index'])->name('category.index');
+
+    // FileAdminController
+    Route::get('/file',  [FileAdminController::class, 'index'])->name('file.index');
 
 // });
