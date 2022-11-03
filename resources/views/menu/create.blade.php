@@ -49,9 +49,15 @@
                                                     <b>Tipo:</b>
                                                     <select class="form-control" name="id_menu_type" required >
                                                         @foreach ($menuType as $value)
-                                                            <option value="{{ $value->id }}">
-                                                                {{ $value->name }}
-                                                            </option>
+                                                            @if ($value->name != "tela")
+                                                                <option value="{{ $value->id }}" disabled>
+                                                                    {{ $value->name }}
+                                                                </option>
+                                                            @else
+                                                                <option value="{{ $value->id }}" >
+                                                                    {{ $value->name }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -75,7 +81,7 @@
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
                                                 <div class="form-menu">
                                                     <b>Ordem:</b>
-                                                    <input type="number" class="form-control" name="order" maxlength="255" required >
+                                                    <input type="number" class="form-control" name="order" maxlength="255" value="0" required >
                                                     <span class="error-validate"><p id="validate-order"></p></span>
                                                 </div>
                                             </div>
