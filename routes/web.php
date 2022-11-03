@@ -21,23 +21,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'autentication'])->name('login-autentication');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/sessionexpire', [HomeController::class, 'sessionexpire'])->name('home.sessionexpire');
 
-// Route::get('/password', [PasswordController::class, 'index'])->name('password');
+Route::group(['middleware' => ['front', 'web']], function (){
 
-// Route::group(['middleware' => ['front', 'web']], function (){
-
+    // HomeController
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    // Route::resource('/user', UserController::class);
 
     // UserAdminController
     Route::get('/user',  [UserAdminController::class, 'index'])->name('user.index');
@@ -72,4 +65,4 @@ Route::get('/sessionexpire', [HomeController::class, 'sessionexpire'])->name('ho
     // FileAdminController
     Route::get('/file',  [FileAdminController::class, 'index'])->name('file.index');
 
-// });
+});
