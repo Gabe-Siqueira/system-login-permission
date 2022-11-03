@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\Api\PermissionApiController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Api\UserMenuApiController;
 use Exception;
 use Illuminate\Http\Request;
 use stdClass;
@@ -73,7 +74,7 @@ class PermissionAdminController extends Controller
             $name = $menu[1];
 
             $request->request->add([
-                'menu' => $id_menu,
+                'id_menu' => $id_menu,
                 'name' => $name
             ]);
 
@@ -90,7 +91,7 @@ class PermissionAdminController extends Controller
             }
 
             return redirect()
-                            ->route('permission.create')
+                            ->back()
                             ->withSuccess('Permissão cadastrado com sucesso!')
                             ->withInput();
         } catch (Exception $e) {
@@ -105,21 +106,37 @@ class PermissionAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_menu)
     {
         try {
+            $permissionController = PermissionApiController::showWithIdMenu($id_menu);
+            $menuController = MenuApiController::index();
+            $userController = UserApiController::indexProfile();
+            $userMenuController = UserMenuApiController::indexWithIdMenu($id_menu);
 
-            $permissionService = PermissionApiController::show($id);
-
-            $permission = $permissionService['data'];
+            $permission = $permissionController['data'];
+            $menu = $menuController['data'];
+            $user = $userController['data'];
+            $userMenu = $userMenuController['data'];
 
             $returnPermission = new stdClass;
             foreach ($permission as $key => $value) {
                 $returnPermission->id = $value->id;
+                $returnPermission->id_menu = $value->id_menu;
                 $returnPermission->name = $value->name;
             }
 
-            return view('permission.edit',['permission' => $returnPermission]);
+            $arrayUser = array();
+            foreach ($user as $key => $value) {
+                $arrayUser[$value->id_profile][$value->id] = $value->name;
+            }
+
+            $arrayUserMenu = array();
+            foreach ($userMenu as $key => $value) {
+                $arrayUserMenu[] = $value->id_user;
+            }
+
+            return view('permission.edit',['permission' => $returnPermission, 'menu' => $menu, 'user' => $arrayUser, 'userMenu' => $arrayUserMenu]);
         } catch (Exception $e) {
             throw $e;
             return LibraryController::responseApi(["title" => __('messages.titleLoadPageError'), "message" => __('messages.defaultMessage')], "", 500, false);
@@ -136,6 +153,16 @@ class PermissionAdminController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $menu = explode('_', $request->menu);
+
+            $id_menu = $menu[0];
+            $name = $menu[1];
+
+            $request->request->add([
+                'id_menu' => $id_menu,
+                'name' => $name
+            ]);
+
             $permissionController = PermissionApiController::update($request, $id);
             $permission = $permissionController;
 
@@ -149,7 +176,7 @@ class PermissionAdminController extends Controller
             }
 
             return redirect()
-                            ->route('permission.index')
+                            ->back()
                             ->withSuccess('Permissão atualizado com sucesso!')
                             ->withInput();
         } catch (Exception $e) {
@@ -169,7 +196,7 @@ class PermissionAdminController extends Controller
         try {
             PermissionApiController::destroy($id);
             return redirect()
-                        ->route('permission.index')
+                        ->back()
                         ->withSuccess('Permissão excluído com sucesso!')
                         ->withInput();
         } catch (Exception $e) {
