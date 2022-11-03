@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ProfileApiCotroller;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Api\UserMenuApiController;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -156,6 +157,7 @@ class UserAdminController extends Controller
     public function destroy($id)
     {
         try {
+            UserMenuApiController::destroyWithIdUser($id);
             UserApiController::destroy($id);
             return redirect()
                         ->route('user.index')
