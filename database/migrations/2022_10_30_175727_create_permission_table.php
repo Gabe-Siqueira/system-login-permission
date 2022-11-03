@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('permission', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_menu');
             $table->string('name')->unique();
             $table->timestamps();
+
+            $table->foreign('id_menu')->references('id')->on('menu');
         });
     }
 
