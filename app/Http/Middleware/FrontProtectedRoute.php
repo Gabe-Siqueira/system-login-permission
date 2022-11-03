@@ -29,8 +29,16 @@ class FrontProtectedRoute
             return $next($request);
         }else{
             foreach ($user->menu as $key => $value) {
-                $str = $value->link;
+                $teste = explode('.', $value->link);
+                $str = $teste[0];
                 if (strpos($str, $route->uri) !== false) {
+                    return $next($request);
+                }
+            }
+            foreach ($user->menu as $key => $value) {
+                $link = explode('.', $value->link);
+                $url = explode('/', $route->uri);
+                if ($link[0] == $url[0]) {
                     return $next($request);
                 }
             }
