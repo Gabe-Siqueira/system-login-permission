@@ -16,16 +16,45 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // Root
         $profile = new Profile();
         $profile = $profile->where('name', 'root')->get()->toArray();
-
-        // dd($profile);
 
         foreach ($profile as $key => $value) {
             User::firstOrCreate([
                 'id_profile' => $value['id'],
                 'name' => 'root',
                 'email' => 'root@root.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('P@ssw0rd'),
+                'created_at' => now(),
+            ]);
+        }
+
+        // Admin
+        $profile = new Profile();
+        $profile = $profile->where('name', 'admin')->get()->toArray();
+
+        foreach ($profile as $key => $value) {
+            User::firstOrCreate([
+                'id_profile' => $value['id'],
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('P@ssw0rd'),
+                'created_at' => now(),
+            ]);
+        }
+
+        // User
+        $profile = new Profile();
+        $profile = $profile->where('name', 'user')->get()->toArray();
+
+        foreach ($profile as $key => $value) {
+            User::firstOrCreate([
+                'id_profile' => $value['id'],
+                'name' => 'user',
+                'email' => 'user@user.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('P@ssw0rd'),
                 'created_at' => now(),
