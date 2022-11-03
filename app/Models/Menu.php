@@ -31,4 +31,9 @@ class Menu extends Model
     {
         return $this->hasMany(UserMenu::class, 'id_menu', 'id');
     }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
 }
