@@ -29,19 +29,51 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <div class="permission">
+                                    <div class="menu">
                                         <div class="row ml-1">
                                             <h4 class="bold">
-                                                Dados
+                                                Acesso
                                             </h4>
                                         </div>
                                         <hr style="margin-top: -5px;">
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-                                                <div class="form-permission">
-                                                    <b>Nome:</b>
-                                                    <input type="text" class="form-control" name="name" maxlength="255" required value="{{ $permission->name }}" >
-                                                    <span class="error-validate"><p id="validate-name"></p></span>
+                                                <div class="form-group">
+                                                    <b>Menu:</b>
+                                                    <input type="text" class="form-control" name="id_menu_actual" maxlength="255" value="{{ $permission->id_menu }}" hidden >
+                                                    <select class="form-control" name="menu" required >
+                                                        <option value="">Selecione</option>
+                                                        @foreach ($menu as $value)
+                                                            <option value="{{ $value->id }}_{{ $value->name }}" {{ ($value->name == $permission->name) ? "selected" : "" }} >
+                                                                {{ $value->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user">
+                                        <div class="row ml-1">
+                                            <h4 class="bold">
+                                                Usuários
+                                            </h4>
+                                        </div>
+                                        <hr style="margin-top: -5px;">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <select class="form-control selectpicker" name="user[]" multiple require >
+                                                        @foreach ($user as $key => $value)
+                                                            <optgroup label="{{ $key }}">
+                                                                @foreach ($value as $id => $name)
+                                                                    <option value="{{ $id }}" {{ in_array($id, $userMenu) ? "selected" : "" }} >
+                                                                        {{ $name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
