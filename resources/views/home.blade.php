@@ -20,45 +20,10 @@
                         {{-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> --}}
                         <p class="lead">
                             <div class="row">
-                                <!-- <div class="access" style="margin-left: 30px;">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <a class="btn btn-success btn-sm btn-block"  href="{{ route('user.index') }}" role="button">
-                                            Usuário
-                                        </a>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <a class="btn btn-primary btn-sm btn-block"  href="{{ route('menu.index') }}" role="button">
-                                            Menu
-                                        </a>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <a class="btn btn-info btn-sm btn-block"  href="{{ route('permission.index') }}" role="button">
-                                            Permissão
-                                        </a>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="access_user" style="margin-right: 50px;">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <a class="btn btn-danger btn-sm btn-block"  href="{{ route('course.index') }}" role="button">
-                                                Curso
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <a class="btn btn-warning btn-sm btn-block"  href="{{ route('category.index') }}" role="button">
-                                                Categoria
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <a class="btn btn-secondary btn-sm btn-block"  href="{{ route('file.index') }}" role="button">
-                                                Arquivo
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="access" style="margin-left: 30px;">
                                     @foreach ($menu as $value)
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
-                                            <a class="btn btn-success btn-sm btn-block"  href="{{ route($value->link) }}" role="button">
+                                            <a class="btn btn-primary btn-sm btn-block"  href="{{ route($value->link) }}" role="button">
                                                 {{ $value->name }}
                                             </a>
                                         </div>
