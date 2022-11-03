@@ -38,6 +38,7 @@ Route::group(['middleware' => ['jwt.auth']], function(){
     Route::get('permission', [PermissionApiController::class, 'index']);
     Route::post('permission', [PermissionApiController::class, 'store']);
     Route::get('permission/{id}', [PermissionApiController::class, 'show']);
+    Route::get('permission/{id}', [PermissionApiController::class, 'showWithIdMenu']);
     Route::put('permission/{id}', [PermissionApiController::class, 'update']);
     Route::delete('permission/{id}', [PermissionApiController::class, 'destroy']);
 
