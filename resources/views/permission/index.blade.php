@@ -86,10 +86,10 @@
                                                     <td>{{\Carbon\Carbon::parse($value->created_at)->tz('America/Sao_Paulo')->format('d/m/Y H:i:s')}}</td>
                                                     <td class="text-center">
                                                         <div class="row" style="display: inline-flex;">
-                                                            <a class="btn btn-primary btn-sm" href="{{ route('permission.edit',['id' => $value->id]) }}" role="button">
+                                                            <a class="btn btn-primary btn-sm" href="{{ route('permission.edit',['id' => $value->id_menu]) }}" role="button">
                                                                 Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                             </a>
-                                                            <form method="post" class="delete_form" action="{{ route('permission.destroy',['id' => $value->id]) }}">
+                                                            <form method="post" class="delete_form" action="{{ route('permission.destroy',['id' => $value->id_menu]) }}">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <button type="submit" class="btn btn-sm btn-danger">
