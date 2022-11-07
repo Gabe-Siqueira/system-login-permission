@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         $profile = $profile->where('name', 'root')->get()->toArray();
 
         foreach ($profile as $key => $value) {
-            User::firstOrCreate([
+            User::updateOrCreate([
                 'id_profile' => $value['id'],
                 'name' => 'root',
                 'email' => 'root@root.com',
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
         $profile = $profile->where('name', 'admin')->get()->toArray();
 
         foreach ($profile as $key => $value) {
-            User::firstOrCreate([
+            User::updateOrCreate([
                 'id_profile' => $value['id'],
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
         $profile = $profile->where('name', 'user')->get()->toArray();
 
         foreach ($profile as $key => $value) {
-            User::firstOrCreate([
+            User::updateOrCreate([
                 'id_profile' => $value['id'],
                 'name' => 'user',
                 'email' => 'user@user.com',
