@@ -15,17 +15,17 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        Profile::firstOrCreate([
+        Profile::updateOrCreate([
             'name' => 'root',
             'created_at' => now(),
         ]);
 
-        Profile::firstOrCreate([
+        Profile::updateOrCreate([
             'name' => 'admin',
             'created_at' => now(),
         ]);
 
-        Profile::firstOrCreate([
+        Profile::updateOrCreate([
             'name' => 'user',
             'created_at' => now(),
         ]);
