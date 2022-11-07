@@ -15,17 +15,17 @@ class MenuTypeSeeder extends Seeder
      */
     public function run()
     {
-        MenuType::firstOrCreate([
+        MenuType::updateOrCreate([
             'name' => 'menu',
             'created_at' => now(),
         ]);
 
-        MenuType::firstOrCreate([
+        MenuType::updateOrCreate([
             'name' => 'submenu',
             'created_at' => now(),
         ]);
 
-        MenuType::firstOrCreate([
+        MenuType::updateOrCreate([
             'name' => 'tela',
             'created_at' => now(),
         ]);
