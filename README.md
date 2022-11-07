@@ -10,7 +10,7 @@ Login system and simple access level.
 
 # Info
 
-The project was developed with PHP using the Object Oriented pattern.
+The project was developed using the Laravel framework and Mysql database.
 
 # Instructions
 
