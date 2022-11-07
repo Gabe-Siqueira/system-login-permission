@@ -40,7 +40,7 @@ Start application database structure:
 ```bash
 
 # create database tables
-$ php artisan migrate --database=mysql
+$ php artisan migrate
 
 #insert basic data for the application
 $ php artisan db:seed
